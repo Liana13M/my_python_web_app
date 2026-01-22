@@ -1,0 +1,22 @@
+name: Test SSH Connection
+
+on:
+  workflow_dispatch:  # Permet de déclencher manuellement
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test SSH to VM
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            echo "✅ Connexion SSH réussie!"
+            echo "Date: $(date)"
+            echo "User: $(whoami)"
+            echo "Hostname: $(hostname)"
+            echo "IP: $(hostname -I)"
