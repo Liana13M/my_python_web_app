@@ -1,0 +1,20 @@
+name: build and integrate image to Dockerhub
+on:
+  push: 
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  steps:
+    - name: checkout repository
+      uses: actions/checkout@v3
+    - name: build docker image
+      run: |
+        docker build -t liana13m/my_python_web_app:latest .
+    - name: Login to Dockerhub
+      uses: docker/login-actions@v2
+      with: 
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: push to Docker hub
+      run: |
+        docker push liana13m/my_python_web_app

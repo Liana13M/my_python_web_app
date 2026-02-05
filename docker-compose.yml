@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      SECRET_KEY: 123456789
+      FLASK_ENV: develoment
+      FLASK_APP: app
+    volumes:
+      - .:/app
+    restart: unless-stopped
